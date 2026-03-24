@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mathias Ulano — 4CINF</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet"/>
+
   <style>
     :root {
       --bg: #060f0a;
@@ -12,95 +14,51 @@
       --border: #122a1a;
       --accent: #4ade80;
       --accent2: #86efac;
-      --accent3: #bbf7d0;
       --text: #e2f0e8;
       --muted: #4d7a5e;
       --card: #0d1f13;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: var(--bg);
       color: var(--text);
       font-family: 'Syne', sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
     }
 
-    /* ── NOISE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: .4;
-    }
-
-    /* ── AMBIENT GLOW ── */
-    .glow-orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(120px);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .glow-orb.a { width: 500px; height: 500px; background: #4ade8022; top: -150px; right: -100px; }
-    .glow-orb.b { width: 400px; height: 400px; background: #16a34a18; bottom: -100px; left: -100px; }
-
-    /* ── LAYOUT ── */
     .wrapper {
-      position: relative;
-      z-index: 1;
       max-width: 780px;
-      margin: 0 auto;
-      padding: 60px 24px 80px;
+      margin: auto;
+      padding: 60px 20px;
     }
 
-    /* ── HEADER ── */
     header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 64px;
-      animation: fadeUp .6s ease both;
+      margin-bottom: 50px;
     }
 
     .site-title {
-      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-size: 2.5rem;
       font-weight: 800;
-      line-height: 1;
-      letter-spacing: -0.03em;
     }
 
     .site-title span {
       display: block;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .badge-group {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 6px;
+      color: var(--accent);
     }
 
     .badge {
       font-family: 'Space Mono', monospace;
       font-size: 0.7rem;
       padding: 4px 10px;
-      border-radius: 999px;
       border: 1px solid var(--border);
       color: var(--muted);
       background: var(--surface);
-      letter-spacing: 0.05em;
+      border-radius: 999px;
+      margin-bottom: 5px;
+      display: inline-block;
     }
 
     .badge.highlight {
@@ -108,154 +66,67 @@
       color: var(--accent);
     }
 
-    /* ── SECTION ── */
     section {
-      margin-bottom: 52px;
+      margin-bottom: 40px;
     }
 
     .section-label {
       font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
+      font-size: 0.7rem;
       color: var(--muted);
+      margin-bottom: 15px;
       text-transform: uppercase;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* ── GRID ── */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 12px;
     }
 
-    /* ── CARD ── */
     .card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
+      border-radius: 12px;
+      padding: 16px;
       text-decoration: none;
       color: var(--text);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: border-color .25s, transform .25s, box-shadow .25s;
-      position: relative;
-      overflow: hidden;
-      animation: fadeUp .5s ease both;
+      transition: 0.2s;
     }
 
-    .card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--accent-color, var(--accent)) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity .3s;
-      border-radius: inherit;
-    }
-
-    .card:hover { border-color: var(--accent-color, var(--accent)); transform: translateY(-3px); box-shadow: 0 12px 40px #0006; }
-    .card:hover::before { opacity: .06; }
-
-    .card-icon {
-      font-size: 1.4rem;
-      width: 42px; height: 42px;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--border);
-      border-radius: 10px;
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
     }
 
     .card-title {
-      font-size: 0.95rem;
       font-weight: 600;
-      line-height: 1.2;
+      margin-bottom: 5px;
     }
 
     .card-sub {
       font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
+      font-size: 0.7rem;
       color: var(--muted);
     }
 
-    .card-arrow {
-      margin-top: auto;
-      align-self: flex-end;
-      color: var(--muted);
-      font-size: 1.1rem;
-      transition: color .2s, transform .2s;
-    }
-    .card:hover .card-arrow { color: var(--accent-color, var(--accent)); transform: translate(3px, -3px); }
-
-    /* GITHUB CARD variant */
-    .card.github {
-      flex-direction: row;
-      align-items: center;
-      padding: 16px 20px;
-      gap: 14px;
-    }
-
-    .card.github .card-body { flex: 1; }
-    .card.github .card-title { font-size: 0.88rem; }
-    .card.github .card-icon { font-size: 1rem; flex-shrink: 0; }
-
-    /* ── COLOR VARIANTS ── */
-    .c-green  { --accent-color: #4ade80; }
-    .c-purple { --accent-color: #86efac; }
-    .c-pink   { --accent-color: #34d399; }
-    .c-orange { --accent-color: #a3e635; }
-    .c-yellow { --accent-color: #d9f99d; }
-    .c-cyan   { --accent-color: #6ee7b7; }
-
-    /* ── FOOTER ── */
     footer {
-      margin-top: 72px;
-      padding-top: 24px;
+      margin-top: 50px;
+      padding-top: 20px;
       border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      font-family: 'Space Mono', monospace;
       font-size: 0.7rem;
       color: var(--muted);
-      animation: fadeUp .6s ease .4s both;
+      font-family: 'Space Mono', monospace;
     }
 
-    footer .dot { color: var(--accent); }
+    .dot { color: var(--accent); }
 
-    /* ── ANIMATION ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .card:nth-child(1) { animation-delay: .05s; }
-    .card:nth-child(2) { animation-delay: .10s; }
-    .card:nth-child(3) { animation-delay: .15s; }
-    .card:nth-child(4) { animation-delay: .20s; }
-    .card:nth-child(5) { animation-delay: .25s; }
-    .card:nth-child(6) { animation-delay: .30s; }
-
-    @media (max-width: 480px) {
-      header { flex-direction: column; align-items: flex-start; gap: 16px; }
-      .badge-group { align-items: flex-start; }
-    }
   </style>
 </head>
+
 <body>
-  <div class="glow-orb a"></div>
-  <div class="glow-orb b"></div>
 
   <div class="wrapper">
 
@@ -264,76 +135,96 @@
       <div class="site-title">
         Mathias<br><span>Ulano</span>
       </div>
-      <div class="badge-group">
-        <span class="badge highlight">4CINF</span>
-        <span class="badge">ulano.mathias</span>
+
+      <div>
+        <div class="badge highlight">4CINF</div><br>
+        <div class="badge">ulano.mathias</div>
       </div>
     </header>
 
-    <!-- ESERCIZI LOCALI -->
+    <!-- ESERCIZI -->
     <section>
-      <p class="section-label">Esercizi �03</p>
-      <div class="card-grid">
+      <p class="section-label">Esercizi 03</p>
 
-        <a href="es03/es3a.html" class="card c-green">
+      <div class="card-grid">
+        <a href="es03/es3a.html" class="card">
           <div class="card-title">Esercizio 3A</div>
           <div class="card-sub">es03 / es3a.html</div>
         </a>
 
-        <a href="es03/es03b.html" class="card c-purple">
+        <a href="es03/es03b.html" class="card">
           <div class="card-title">Esercizio 3B</div>
           <div class="card-sub">es03 / es03b.html</div>
         </a>
 
-        <a href="es03/es3c.html" class="card c-pink">
+        <a href="es03/es3c.html" class="card">
           <div class="card-title">Esercizio 3C</div>
           <div class="card-sub">es03 / es3c.html</div>
         </a>
-
       </div>
     </section>
+<!-- ESERCIZI 04 -->
+<section>
+  <p class="section-label">Esercizi 04</p>
 
-    <!-- TOOLS / APP -->
+  <div class="card-grid">
+    <a href="es04/persona.html" class="card">
+      <div class="card-title">Persona</div>
+      <div class="card-sub">es04 / persona.html</div>
+    </a>
+</section>
+
+    <!-- APP -->
     <section>
       <p class="section-label">Applicazioni</p>
+
       <div class="card-grid">
-	<a href="es03/calc.html" class="card c-orange">
+        <a href="es03/calc.html" class="card">
           <div class="card-title">Calcolatrice</div>
           <div class="card-sub">processargv / calc.html</div>
         </a>
-
       </div>
     </section>
 
-    <!-- GITHUB LINKS -->
+    <!-- GITHUB -->
     <section>
       <p class="section-label">Repository GitHub esercizi non visibili web</p>
+
       <div class="card-grid" style="grid-template-columns: 1fr;">
 
-        <a href="https://github.com/MagicianITAfr/W4s-web/blob/main/processargv/for.js" target="_blank" rel="noopener" class="card github c-cyan">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
-          </div>
-          <div class="card-body">
-            <div class="card-title">for</div>
-            <div class="card-sub">github.com / MagicianITAfr /for 100 0</div>
-          </div>
+        <a href="https://github.com/MagicianITAfr/W4s-web/blob/main/processargv/for.js" target="_blank" class="card">
+          <div class="card-title">for</div>
+          <div class="card-sub">github.com / MagicianITAfr / for.js</div>
         </a>
 
-        <a href="https://github.com/MagicianITAfr/W4s-web/blob/main/processargv/calc.js" target="_blank" rel="noopener" class="card github c-purple">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
-          </div>
-            <div class="card-title">calc</div>
-            <div class="card-sub">github.com/MagicianITAfr/calc.js</div>
-          </div>
+        <a href="https://github.com/MagicianITAfr/W4s-web/blob/main/processargv/calc.js" target="_blank" class="card">
+          <div class="card-title">calc</div>
+          <div class="card-sub">github.com / MagicianITAfr / calc.js</div>
+        </a>
+    <a href="es04/libro.js" class="card">
+      <div class="card-title">Libro</div>
+      <div class="card-sub">es04 / libro.js</div>
+    </a>
+  </div>
+</section>
+<section>
+    <a href="es04/libro.js" class="card">
+      <div class="card-title">Libro</div>
+      <div class="card-sub">es04 / libro.js</div>
+    </a>
+  </div>
+</section>
+
       </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-      <span>© 2026 <span class="dot"></span> Mathias Ulano</span>
-      <span>4CINF <span class="dot">·</span> ulano.mathias</span>
+      <span>© 2026 <span class="dot">•</span> Mathias Ulano</span>
+      <span>4CINF <span class="dot">•</span> ulano.mathias</span>
     </footer>
 
   </div>
+
 </body>
 </html>
