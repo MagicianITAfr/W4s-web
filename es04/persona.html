@@ -24,7 +24,7 @@
 
     <script>
         document.getElementById("personaForm").addEventListener("submit", function(event) {
-
+	event.preventDefault();
             // Recupero dati dal form
             const nome = document.getElementById("nome").value;
             const cognome = document.getElementById("cognome").value;
