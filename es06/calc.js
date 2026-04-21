@@ -1,12 +1,12 @@
 function calcola() {
-    // process.argv[0] è il percorso di node
-    // process.argv[1] è il percorso del file
+    // process.argv[0]il percorso di node
+    // process.argv[1] il percorso del file
     const n1 = Number(process.argv[2]);
     const n2 = Number(process.argv[4]);
     const op = process.argv[3];
 
     if (isNaN(n1) || isNaN(n2)) {
-        console.log("Errore: uno dei valori non �un numero.");
+        console.log("Errore: uno dei valori non é numero.");
         return;
     }
 
